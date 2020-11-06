@@ -1,6 +1,6 @@
-const { model, Schema } = require("mongoose");
+import { model, Schema } from "mongoose";
 
-const bcryptService = require("../services/bcrypt.service");
+import bcryptService from "../services/bcrypt.service";
 
 const userSchema = new Schema(
   {
@@ -66,4 +66,4 @@ userSchema.methods = {
   },
 };
 
-module.exports = model("User", userSchema);
+export default model("User", userSchema);

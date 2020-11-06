@@ -1,36 +1,38 @@
-const httpStatus = require("http-status");
+import { BAD_REQUEST, OK } from "http-status";
 
-const authService = require("../services/auth.service");
-const bcryptService = require("../services/bcrypt.service");
-const User = require("../model/user");
-const sendResponse = require("../helpers/response");
+import authService from "../services/auth.service";
+import bcryptService from "../services/bcrypt.service";
+import UserModel from "../model/user";
+import sendResponse from "../helpers/response";
 
-exports.signup = async (req, res) => {
+export async function signup(req, res) {
   //Checking if username already exist
-  const usernameExist = await User.findOne({ username: req.body.username });
+  const usernameExist = await UserModel.findOne({
+    username: req.body.username,
+  });
   if (usernameExist)
     return res.json(
-      sendResponse(httpStatus.BAD_REQUEST, "Username already exist")
+      sendResponse(BAD_REQUEST, "Username already exist")
     );
 
-  const user = new User({
+  const user = new UserModel({
     ...req.body,
   });
 
   try {
     const createdUser = await user.save();
-    res.json(sendResponse(httpStatus.OK, "User registered", createdUser));
+    res.json(sendResponse(OK, "User registered", createdUser));
   } catch (err) {
     res.json({ status: 400, message: "User not register", payload: null });
   }
-};
+}
 
-exports.login = async (req, res) => {
+export async function login(req, res) {
   //Checking username existence
-  const user = await User.findOne({ username: req.body.username });
+  const user = await UserModel.findOne({ username: req.body.username });
   if (!user)
     return res.json(
-      sendResponse(httpStatus.BAD_REQUEST, "Username does not exist")
+      sendResponse(BAD_REQUEST, "Username does not exist")
     );
 
   //Check password validity
@@ -39,11 +41,11 @@ exports.login = async (req, res) => {
     user.password
   );
   if (!validPassword)
-    return res.json(sendResponse(httpStatus.BAD_REQUEST, "Invalid Password"));
+    return res.json(sendResponse(BAD_REQUEST, "Invalid Password"));
 
   //Create token when user logs in
   const token = authService().issue(user.toJSON());
   return res.json(
-    sendResponse(httpStatus.OK, "User Logged in", null, null, token)
+    sendResponse(OK, "User Logged in", null, null, token)
   );
-};
+}

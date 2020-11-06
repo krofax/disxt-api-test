@@ -1,13 +1,13 @@
-const bcrypt = require("bcrypt");
+import { hash as _hash, compare } from "bcrypt";
 
-const config = require("../config/env");
+import { hashingSalt } from "../config/env";
 
 const bcryptService = () => {
   const hashPassword = ({ password }) => {
-    return bcrypt.hash(password, Number(config.hashingSalt));
+    return _hash(password, Number(hashingSalt));
   };
 
-  const comparePassword = (password, hash) => bcrypt.compare(password, hash);
+  const comparePassword = (password, hash) => compare(password, hash);
 
   return {
     hashPassword,
@@ -15,4 +15,4 @@ const bcryptService = () => {
   };
 };
 
-module.exports = bcryptService;
+export default bcryptService;

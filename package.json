@@ -5,12 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "env-cmd -f ./config/dev.env nodemon server.js"
+    "dev": "env-cmd -f ./config/dev.env nodemon --exec babel-node server.js"
   },
-  "babel": {
-    "presets": ["@babel/preset-env"]
-  },
-
   "dependencies": {
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -32,6 +28,7 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.6",
     "@babel/preset-env": "^7.12.1",
     "env-cmd": "^10.1.0",
     "nodemon": "^2.0.6"

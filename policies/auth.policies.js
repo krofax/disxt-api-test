@@ -1,9 +1,9 @@
-const httpStatus = require("http-status");
+import { UNAUTHORIZED } from "http-status";
 
-const sendResponse = require("../helpers/response");
-const JWTService = require("../services/auth.service");
+import sendResponse from "../helpers/response";
+import JWTService from "../services/auth.service";
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   let tokenToVerify;
 
   if (req.header("Authorization")) {
@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
       } else {
         return res.json(
           sendResponse(
-            httpStatus.UNAUTHORIZED,
+            UNAUTHORIZED,
             "Format for Authorization: Bearer [token]"
           )
         );
@@ -26,7 +26,7 @@ module.exports = (req, res, next) => {
     } else {
       return res.json(
         sendResponse(
-          httpStatus.UNAUTHORIZED,
+          UNAUTHORIZED,
           "Format for Authorization: Bearer [token]"
         )
       );
@@ -36,7 +36,7 @@ module.exports = (req, res, next) => {
     delete req.query.token;
   } else {
     return res.json(
-      sendResponse(httpStatus.UNAUTHORIZED, "No Authorization was found")
+      sendResponse(UNAUTHORIZED, "No Authorization was found")
     );
   }
 
@@ -44,7 +44,7 @@ module.exports = (req, res, next) => {
     if (err)
       return res.json(
         sendResponse(
-          httpStatus.UNAUTHORIZED,
+          UNAUTHORIZED,
           "Format for Authorization: Bearer [token]"
         )
       );

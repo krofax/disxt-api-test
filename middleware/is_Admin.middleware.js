@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
 
-const sendResponse = require("../helpers/response");
+const sendResponse = require("../helpers/response").default;
 
 module.exports = (req, res, next) => {
   const { role } = req.token;

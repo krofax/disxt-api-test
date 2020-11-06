@@ -1,7 +1,7 @@
-const privateRoutes = require("./private.routes");
-const publicRoutes = require("./public.routes");
+import privateRoutes from "./private.routes";
+import publicRoutes from "./public.routes";
 
-module.exports = {
+export default {
   privateRoutes,
   publicRoutes,
 };

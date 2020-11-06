@@ -7,7 +7,7 @@
  * @returns {{}}
  */
 
-module.exports = function (statusCode, message, payload, errors, token) {
+export default function (statusCode, message, payload, errors, token) {
   return {
     statusCode,
     message,

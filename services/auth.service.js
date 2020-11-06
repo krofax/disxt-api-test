@@ -1,14 +1,14 @@
-const jwt = require("jsonwebtoken");
+import { sign, verify as _verify } from "jsonwebtoken";
 
-const config = require("../config/env");
+import config from "../config/env";
 
 const authService = () => {
   const issue = (payload) =>
-    jwt.sign(payload, config.jwtSecret, {
+    sign(payload, config.jwtSecret, {
       expiresIn: config.jwtExpirationInterval,
     });
 
-  const verify = (token, cb) => jwt.verify(token, config.jwtSecret, {}, cb);
+  const verify = (token, cb) => _verify(token, config.jwtSecret, {}, cb);
 
   return {
     issue,
@@ -16,4 +16,4 @@ const authService = () => {
   };
 };
 
-module.exports = authService;
+export default authService;

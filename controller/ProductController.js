@@ -1,76 +1,76 @@
-const httpStatus = require("http-status");
+import { OK, BAD_REQUEST, BAD_GATEWAY } from "http-status";
 
-const sendResponse = require("../helpers/response");
-const ProductQuery = require("../model/product");
+import sendResponse from "../helpers/response";
+import ProductModel from "../model/product";
 
-exports.ProductController = async (req, res) => {
+export async function ProductController(req, res) {
   try {
     const { id } = req.token;
-    const newProduct = new ProductQuery({
+    const newProduct = new ProductModel({
       ...req.body,
       created_by: id,
     });
     const createdProduct = await newProduct.save();
-    res.json(sendResponse(httpStatus.OK, "Product created", createdProduct));
+    res.json(sendResponse(OK, "Product created", createdProduct));
   } catch (error) {
-    res.json(sendResponse(httpStatus.BAD_REQUEST, "Product was not created"));
+    res.json(sendResponse(BAD_REQUEST, "Product was not created"));
   }
-};
+}
 
-exports.GetAllProducts = async (req, res) => {
+export async function GetAllProducts(req, res) {
   try {
-    const listProducts = await ProductQuery.find();
-    res.json(sendResponse(httpStatus.OK, "Product retrieved", listProducts));
+    const listProducts = await ProductModel.find();
+    res.json(sendResponse(OK, "Product retrieved", listProducts));
   } catch (err) {
-    res.json(sendResponse(httpStatus.BAD_GATEWAY, "Products not retrieved"));
+    res.json(sendResponse(BAD_GATEWAY, "Products not retrieved"));
   }
-};
+}
 
-exports.getSingleProduct = async (req, res) => {
+export async function getSingleProduct(req, res) {
   const { _id } = req.params;
   try {
-    const getOneProduct = await ProductQuery.findById({ _id });
-    res.json(sendResponse(httpStatus.OK, "Product retrieved", getOneProduct));
+    const getOneProduct = await ProductModel.findById({ _id });
+    res.json(sendResponse(OK, "Product retrieved", getOneProduct));
   } catch (error) {
     res.json(
       sendResponse(
-        httpStatus.BAD_GATEWAY,
+        BAD_GATEWAY,
         "Cannot get product because id is not correct"
       )
     );
   }
-};
+}
 
-exports.updateProduct = async (req, res, next) => {
+export async function updateProduct(req, res, next) {
   try {
     const update = req.body;
     const { _id } = req.params;
-    await ProductQuery.findByIdAndUpdate(_id, update);
-    const product = await ProductQuery.findById(_id);
-    res.json(sendResponse(httpStatus.OK, "Product updated", product));
+    await ProductModel.findByIdAndUpdate(_id, update);
+    const product = await ProductModel.findById(_id);
+    res.json(sendResponse(OK, "Product updated", product));
   } catch (error) {
     res.json(
       sendResponse(
-        httpStatus.BAD_REQUEST,
+        BAD_REQUEST,
         "Product not updated because id is not correct"
       )
     );
     next(error);
   }
-};
+}
 
-exports.deleteProduct = async (req, res, next) => {
+export async function deleteProduct(req, res, next) {
   try {
     const { _id } = req.params;
-    await ProductQuery.findByIdAndDelete({ _id });
-    res.json(sendResponse(httpStatus.OK, "Product deleted"));
+    await ProductModel.findByIdAndDelete({ _id });
+    res.json(sendResponse(OK, "Product deleted"));
   } catch (error) {
     res.json(
       sendResponse(
-        httpStatus.BAD_REQUEST,
+        BAD_REQUEST,
         "Product not deleted because id is not correct"
       )
     );
     next(error);
   }
-};
+}

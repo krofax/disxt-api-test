@@ -1,27 +1,27 @@
-const { Router } = require("express");
-const { celebrate: validate } = require("celebrate");
+import { Router } from "express";
+import { celebrate as validate } from "celebrate";
 
-const validation = require('../validations/product.validation')
-const Products = require("../controller/ProductController");
-const auth = require("../policies/auth.policy");
-const checkRole = require("../middleware/is_Admin.middleware");
+import { product } from '../validations/product.validation';
+import { ProductController, GetAllProducts, getSingleProduct, updateProduct, deleteProduct } from "../controller/ProductController";
+import auth from "../policies/auth.policies";
+import checkRole from "../middleware/is_Admin.middleware";
 const router = Router();
 
 router
   .route("/product")
   .post(
-    validate(validation.product, { abortEarly: false }),
+    validate(product, { abortEarly: false }),
     auth,
     checkRole,
-    Products.ProductController
+    ProductController
   );
-router.route("/getproducts").get(Products.GetAllProducts);
-router.route("/getsingleproduct/:_id").get(Products.getSingleProduct);
+router.route("/getproducts").get(GetAllProducts);
+router.route("/getsingleproduct/:_id").get(getSingleProduct);
 router
   .route("/updateproduct/:_id")
-  .put(auth, checkRole, Products.updateProduct);
+  .put(auth, checkRole, updateProduct);
 router
   .route("/deleteproduct/:_id")
-  .delete(auth, checkRole, Products.deleteProduct);
+  .delete(auth, checkRole, deleteProduct);
 
-module.exports = router;
+export default router;

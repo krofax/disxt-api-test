@@ -1,19 +1,21 @@
-const { Router } = require("express");
-const { celebrate: validate } = require("celebrate");
+import { Router } from "express";
+import { celebrate as validate } from "celebrate";
 
-const validation = require('../validations/user.validation')
-const User = require("../controller/UserController");
+import { signup, login } from '../validations/user.validation';
+import { signup as _signup, login as _login } from "../controller/UserController";
 const router = Router();
 
 router
   .route("/signup")
   .post(
-    validate(validation.signup, { abortEarly: false }),
-    User.signup
+    // validate(signup, { abortEarly: false }),
+    _signup
   );
 router
   .route("/login")
-  .post(validate(validation.login, { abortEarly: false }), User.login);
+  .post(
+    // validate(login, { abortEarly: false }),
+    _login);
 
 
-module.exports = router;
+export default router;
