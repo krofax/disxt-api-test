@@ -1,6 +1,6 @@
 # Authentication based CRUD API
 
-This project is a test, it's a crud app, in which admin and users can signup and login, see lists of products, see all products but on an admin has the authorization to create/update and delete product.
+This project is a test, it's a crud app, in which admin and users can signup and login, see lists of products, see all products but only an admin has the authorization to create/update and delete product.
 
 ## Getting Started
 
