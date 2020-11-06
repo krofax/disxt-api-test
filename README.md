@@ -8,7 +8,7 @@ you should have the following already
 Docker Installed on your computer or have the following:
 nodejs and MongoDb
 
-### Installing/ StartUp
+### Installing
 
 Clone the App
 
