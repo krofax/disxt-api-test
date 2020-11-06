@@ -40,7 +40,7 @@ npm start
 | POST /api/v1/private/product             | Admin can create a product                          |
 | DELETE /api/v1/private/deleteproduct/:_id| Admin delete a specific product based on the id.    |
 | PUT /api/v1/private/updateproduct/:_id   | Admin update a specific product based on the id.    |
-|                                
+                             
 
 ## Built With
 
