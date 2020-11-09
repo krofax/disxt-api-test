@@ -36,10 +36,10 @@ npm start
 | POST /api/v1/public/signup               | Sign up a user(client/admin)                        |
 | POST /api/v1/public/login                | Logs a user in.                                     |
 | GET/api/v1/public/getproducts            | Both Clients and Admins can get all products        |
-| GET/api/v1/public/getsingleproduct/:_id  | Both Clients and Admins can get a specific product  |
+| GET/api/v1/public/getsingleproduct/{id}  | Both Clients and Admins can get a specific product  |
 | POST /api/v1/private/product             | Admin can create a product                          |
-| DELETE /api/v1/private/deleteproduct/:_id| Admin delete a specific product based on the id.    |
-| PUT /api/v1/private/updateproduct/:_id   | Admin update a specific product based on the id.    |
+| DELETE /api/v1/private/deleteproduct/{id}| Admin delete a specific product based on the id.    |
+| PUT /api/v1/private/updateproduct/{id}   | Admin update a specific product based on the id.    |
                              
 
 ## Built With
